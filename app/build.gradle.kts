@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -49,6 +52,11 @@ android {
     }
 }
 
+val nav_version = "2.5.3"
+val room_version = "2.5.1"
+val coroutines_version = "1.6.4"
+val lifecycle_version = "2.5.1"
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.13.1")
@@ -59,6 +67,48 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+
+    // Navigation
+    implementation ("androidx.navigation:navigation-compose:$nav_version")
+    // Room
+    implementation ("androidx.room:room-runtime:$room_version")
+    testImplementation ("junit:junit:4.12")
+    testImplementation ("org.junit.jupiter:junit-jupiter")
+    testImplementation ("junit:junit:4.12")
+    kapt ("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+    // Hilt
+    implementation ("com.google.dagger:hilt-android:2.47")
+    implementation ("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    testImplementation ("com.google.dagger:hilt-android-testing:2.47")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    kapt ("com.google.dagger:hilt-compiler:2.47")
+    implementation ("com.jakewharton.timber:timber:5.0.1")
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    //Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    //LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    //Coil
+    implementation ("io.coil-kt:coil-compose:2.2.2")
+    implementation ("com.squareup.picasso:picasso:2.5.2")
+
+    //Test
+    testImplementation ("androidx.test:core:1.5.0")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    testImplementation ("com.google.truth:truth:1.1.3")
+    testImplementation ("io.mockk:mockk:1.13.4")
+    testImplementation ("io.mockk:mockk-android:1.13.4")
+    testImplementation ("io.mockk:mockk-agent:1.13.4")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.1.0-alpha04")
+    testImplementation ("app.cash.turbine:turbine:0.7.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
