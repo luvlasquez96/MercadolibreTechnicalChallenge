@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MercadolibreMobileTest</string>
+    <string name="home">Inicio</string>
+    <string name="categories">Categorías</string>
 </resources>
