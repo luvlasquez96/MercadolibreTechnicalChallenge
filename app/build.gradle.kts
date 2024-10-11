@@ -100,6 +100,9 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:2.2.2")
     implementation ("com.squareup.picasso:picasso:2.5.2")
 
+    //Google Fonts
+    implementation ("androidx.compose.ui:ui-text-google-fonts:1.7.3")
+
     //Test
     testImplementation ("androidx.test:core:1.5.0")
     testImplementation ("androidx.arch.core:core-testing:2.2.0")
