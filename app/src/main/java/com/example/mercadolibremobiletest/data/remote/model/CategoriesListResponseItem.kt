@@ -1,4 +1,4 @@
-package com.example.mercadolibremobiletest.data.remote
+package com.example.mercadolibremobiletest.data.remote.model
 
 data class CategoriesListResponseItem(
     val id: String,
