@@ -61,6 +61,7 @@ fun DrawerNavigationScreen() {
                     scope.launch {
                         drawerState.close()
                     }
+                    navController.navigate(it.id.name)
                 }
             )
         }
@@ -68,12 +69,12 @@ fun DrawerNavigationScreen() {
         Scaffold(
             topBar = {
                 TopBar(
-                    titleResId = R.string.app_name,
                     openDrawer = {
                         scope.launch {
                             drawerState.open()
                         }
-                    }
+                    },
+                    onSearchQueryChanged = {}
                 )
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },

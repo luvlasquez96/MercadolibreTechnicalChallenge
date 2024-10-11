@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,7 +51,8 @@ fun MenuContentScreen(
 ) {
     var selectedItem by remember { mutableStateOf<MenuItem?>(null) }
 
-    Column (modifier = modifier.background(Color.White)
+    Column (modifier = modifier
+        .background(Color.White)
         .fillMaxHeight()
         .fillMaxWidth(0.85f)) {
         Box(
@@ -92,6 +94,7 @@ fun MenuContentScreen(
                 }
             }
         }
+        HorizontalDivider(color = Color.LightGray)
         LazyColumn(
             modifier = modifier
         ) {

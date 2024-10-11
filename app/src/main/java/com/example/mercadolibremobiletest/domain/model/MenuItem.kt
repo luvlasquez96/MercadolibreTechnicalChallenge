@@ -3,7 +3,6 @@ package com.example.mercadolibremobiletest.domain.model
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.mercadolibremobiletest.R
 
