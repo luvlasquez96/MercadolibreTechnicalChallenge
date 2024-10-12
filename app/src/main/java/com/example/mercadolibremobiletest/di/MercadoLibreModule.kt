@@ -1,6 +1,10 @@
 package com.example.mercadolibremobiletest.di
 
+import com.example.mercadolibremobiletest.data.MercadoLibreRepository
 import com.example.mercadolibremobiletest.data.dataAccess.MercadoLibreService
+import com.example.mercadolibremobiletest.data.local.LocalDataSource
+import com.example.mercadolibremobiletest.data.remote.MercadoLibreRepositoryImpl
+import com.example.mercadolibremobiletest.data.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +19,14 @@ object MercadoLibreModule {
     @Singleton
     fun provideWeatherService(retrofit: Retrofit): MercadoLibreService {
         return retrofit.create(MercadoLibreService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMercadoLibreRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
+    ): MercadoLibreRepository {
+        return MercadoLibreRepositoryImpl(remoteDataSource, localDataSource)
     }
 }

@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mercadolibremobiletest.domain.model.drawerScreens
 import com.example.mercadolibremobiletest.navigation.NavHost
 import com.example.mercadolibremobiletest.presentation.composable.MenuContentScreen
-import com.example.mercadolibremobiletest.presentation.composable.TopBar
+import com.example.mercadolibremobiletest.presentation.composable.MercadoLibreTopBar
 import com.example.mercadolibremobiletest.ui.theme.MercadolibreMobileTestTheme
 import kotlinx.coroutines.launch
 
@@ -68,18 +68,20 @@ fun DrawerNavigationScreen() {
     ) {
         Scaffold(
             topBar = {
-                TopBar(
+                MercadoLibreTopBar(
                     openDrawer = {
                         scope.launch {
                             drawerState.open()
                         }
                     },
-                    onSearchQueryChanged = {}
+                    onSearchQueryChanged = {},
+                    recommendedItems = emptyList()
                 )
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) { paddingValues ->
-            NavHost(navController = navController, modifier = Modifier.padding(paddingValues))
+        )
+        {
+            NavHost(navController = navController, modifier = Modifier.padding(it))
         }
     }
 }

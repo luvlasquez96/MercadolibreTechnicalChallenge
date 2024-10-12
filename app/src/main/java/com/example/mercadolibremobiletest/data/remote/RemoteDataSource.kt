@@ -1,4 +1,4 @@
-package com.example.mercadolibremobiletest.data.remote.model
+package com.example.mercadolibremobiletest.data.remote
 
 import com.example.mercadolibremobiletest.data.dataAccess.MercadoLibreService
 import javax.inject.Inject

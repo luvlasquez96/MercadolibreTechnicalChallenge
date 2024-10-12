@@ -1,6 +1,6 @@
 package com.example.mercadolibremobiletest.data.remote.model
 
-data class Seller(
+data class SellerResponse(
     val id: Int,
     val nickname: String
 )

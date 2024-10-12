@@ -66,20 +66,14 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material3:material3:1.3.0")
     implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0")
+    implementation("androidx.compose.foundation:foundation:1.7.3")
 
     // Navigation
     implementation ("androidx.navigation:navigation-compose:$nav_version")
-    // Room
-    implementation ("androidx.room:room-runtime:$room_version")
-    testImplementation ("junit:junit:4.12")
-    testImplementation ("org.junit.jupiter:junit-jupiter")
-    testImplementation ("junit:junit:4.12")
-    kapt ("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.room:room-ktx:$room_version")
+
     // Hilt
     implementation ("com.google.dagger:hilt-android:2.47")
     implementation ("androidx.hilt:hilt-navigation-fragment:1.0.0")
@@ -106,6 +100,8 @@ dependencies {
     //Test
     testImplementation ("androidx.test:core:1.5.0")
     testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("junit:junit:4.12")
+    testImplementation ("org.junit.jupiter:junit-jupiter")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     testImplementation ("com.google.truth:truth:1.1.3")
