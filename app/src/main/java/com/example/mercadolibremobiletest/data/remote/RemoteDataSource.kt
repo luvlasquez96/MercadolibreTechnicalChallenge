@@ -8,4 +8,6 @@ class RemoteDataSource @Inject constructor(private val mercadoLibreService: Merc
     suspend fun getCategoriesListAsync() = mercadoLibreService.getCategoriesListAsync()
 
     suspend fun getItemsListAsync(query: String) = mercadoLibreService.getItemsListAsync(query)
+
+    suspend fun getCategoryByIdAsync(id: String) = mercadoLibreService.getCategoryByIdAsync(id)
 }
