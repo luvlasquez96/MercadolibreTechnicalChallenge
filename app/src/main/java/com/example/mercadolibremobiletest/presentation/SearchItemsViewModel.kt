@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mercadolibremobiletest.data.remote.model.ItemResponse
 import com.example.mercadolibremobiletest.domain.model.CategoriesItem
+import com.example.mercadolibremobiletest.domain.model.Item
 import com.example.mercadolibremobiletest.domain.usecase.GetCategoriesUseCase
 import com.example.mercadolibremobiletest.domain.usecase.GetItemInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,21 @@ class SearchItemsViewModel @Inject constructor(
 
     private var _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
     val viewState = _viewState.asStateFlow()
+
+
+    fun getItemsList(query: String) {
+        viewModelScope.launch {
+            getItemInfoUseCase(query)
+                .onSuccess {
+                    val categoryId = it.resultResponses.map {result->
+                        result.categoryId
+                    }
+                    _viewState.value = ViewState.ItemsListLoaded(it)
+                }.onFailure {
+                    _viewState.value = ViewState.Error(it.message.toString())
+                }
+        }
+    }
 
     fun getCategoriesList() {
         viewModelScope.launch {
@@ -38,6 +54,6 @@ class SearchItemsViewModel @Inject constructor(
         data class Error(val errorMessage: String) : ViewState()
 
         data class CategoriesLoaded(val categoriesList: List<CategoriesItem>) : ViewState()
-        data class ItemsListLoaded(val itemsList: List<ItemResponse>) : ViewState()
+        data class ItemsListLoaded(val itemsList: Item) : ViewState()
     }
 }
