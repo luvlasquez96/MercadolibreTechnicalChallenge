@@ -8,7 +8,6 @@ import com.example.mercadolibremobiletest.data.remote.mapper.toItem
 import com.example.mercadolibremobiletest.domain.model.CategoriesItem
 import com.example.mercadolibremobiletest.domain.model.CategoryDetails
 import com.example.mercadolibremobiletest.domain.model.Item
-import retrofit2.Response
 import javax.inject.Inject
 
 class MercadoLibreRepositoryImpl @Inject constructor(
@@ -16,7 +15,7 @@ class MercadoLibreRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource
 ) : MercadoLibreRepository {
 
-    override suspend fun getCategoriesListAsync(): Result<List<CategoriesItem>>{
+    override suspend fun getCategoriesListAsync(): Result<List<CategoriesItem>> {
         val response = remoteDataSource.getCategoriesListAsync()
 
         return if (response.isSuccessful && response.body() != null) {
@@ -36,7 +35,7 @@ class MercadoLibreRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCategoryByIdAsync(id: String) : Result<CategoryDetails> {
+    override suspend fun getCategoryByIdAsync(id: String): Result<CategoryDetails> {
         val request = remoteDataSource.getCategoryByIdAsync(id)
 
         return if (request.isSuccessful && request.body() != null) {

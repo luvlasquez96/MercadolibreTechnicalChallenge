@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mercadolibremobiletest.domain.model.CategoriesItem
 import com.example.mercadolibremobiletest.domain.model.Item
 import com.example.mercadolibremobiletest.domain.usecase.GetCategoriesUseCase
-import com.example.mercadolibremobiletest.domain.usecase.GetCategoryDetilsUseCase
+import com.example.mercadolibremobiletest.domain.usecase.GetCategoryDetailsUseCase
 import com.example.mercadolibremobiletest.domain.usecase.GetItemInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class SearchItemsViewModel @Inject constructor(
     private var getCategoriesUseCase: GetCategoriesUseCase,
     private var getItemInfoUseCase: GetItemInfoUseCase,
-    private var getCategoriesDetilsUseCase: GetCategoryDetilsUseCase
+    private var getCategoriesDetilsUseCase: GetCategoryDetailsUseCase
 ) : ViewModel() {
 
     private var _viewState = MutableStateFlow<ViewState>(ViewState.Loading)

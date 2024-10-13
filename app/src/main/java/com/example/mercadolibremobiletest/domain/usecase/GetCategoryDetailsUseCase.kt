@@ -4,7 +4,7 @@ import com.example.mercadolibremobiletest.data.MercadoLibreRepository
 import com.example.mercadolibremobiletest.domain.model.CategoryDetails
 import javax.inject.Inject
 
-class GetCategoryDetilsUseCase@Inject constructor(
+class GetCategoryDetailsUseCase@Inject constructor(
     private val repository: MercadoLibreRepository
 ) {
 

@@ -7,7 +7,6 @@ import javax.inject.Inject
 class GetItemInfoUseCase @Inject constructor(
     private val repository: MercadoLibreRepository
 ){
-
     suspend operator fun invoke(query: String): Result<Item> {
         return repository.getItemsListAsync(query)
     }
