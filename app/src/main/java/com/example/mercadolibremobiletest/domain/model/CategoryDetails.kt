@@ -6,7 +6,7 @@ data class CategoryDetails(
     val id: String,
     val name: String,
     val pathFromRootResponse: List<PathFromRoot>,
-    val permalink: Any,
-    val picture: Any,
+    val permalink: Any?,
+    val picture: Any?,
     val totalItemsInThisCategory: Int
 )

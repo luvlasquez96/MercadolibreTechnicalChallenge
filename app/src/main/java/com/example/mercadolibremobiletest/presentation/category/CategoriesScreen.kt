@@ -1,4 +1,4 @@
-package com.example.mercadolibremobiletest.presentation.composable
+package com.example.mercadolibremobiletest.presentation.category
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

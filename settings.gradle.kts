@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MercadolibreMobileTest"
 include(":app")
+include(":design_system")

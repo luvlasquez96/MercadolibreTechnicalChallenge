@@ -21,11 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.mercadolibremobiletest.domain.model.drawerScreens
 import com.example.mercadolibremobiletest.navigation.NavHost
+import com.example.mercadolibremobiletest.presentation.home.HomeScreen
 import com.example.mercadolibremobiletest.presentation.composable.MenuContentScreen
-import com.example.mercadolibremobiletest.presentation.composable.MercadoLibreTopBar
 import com.example.mercadolibremobiletest.ui.theme.MercadolibreMobileTestTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,14 +70,12 @@ fun DrawerNavigationScreen() {
     ) {
         Scaffold(
             topBar = {
-                MercadoLibreTopBar(
+                HomeScreen(
                     openDrawer = {
                         scope.launch {
                             drawerState.open()
                         }
                     },
-                    onSearchQueryChanged = {},
-                    recommendedItems = emptyList()
                 )
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
