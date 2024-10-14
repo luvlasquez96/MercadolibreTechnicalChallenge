@@ -1,5 +1,6 @@
 package com.example.mercadolibremobiletest.presentation.home
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -44,21 +45,29 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.mercadolibremobiletest.data.remote.model.SellerResponse
+import com.example.mercadolibremobiletest.domain.model.SalePrice
 import com.example.mercadolibremobiletest.domain.model.SearchResultUI
+import com.example.mercadolibremobiletest.domain.model.Seller
 import com.example.mercadolibremobiletest.presentation.SearchItemsViewModel
+import com.example.mercadolibremobiletest.utils.toHttpsUrl
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     openDrawer: () -> Unit,
+    navController: NavController
 ) {
     val searchItemsViewModel: SearchItemsViewModel = hiltViewModel()
     val viewState by searchItemsViewModel.viewState.collectAsState()
@@ -181,7 +190,17 @@ fun HomeScreen(
                         searchResults = searchResults,
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues)
+                            .padding(paddingValues),
+                        onProductDetails = { searchResultItem->
+                            val thumbnailUrl = searchResultItem.thumbnail.toHttpsUrl()
+                            val encodedThumbnail = Uri.encode(thumbnailUrl)
+
+                            //navController.navigate("productDetail/$encodedTitle/$encodedPrice/" +
+                                    //"$encodedCategory/$encodedSeller/$encodedThumbnail")
+
+                            navController.navigate("productDetail/${searchResultItem.title}/${searchResultItem.price}/" +
+                                    "${searchResultItem.categoryName}/${searchResultItem.sellerResponse.nickname}/${encodedThumbnail}")
+                        }
                     )
                 }
             }
@@ -190,10 +209,12 @@ fun HomeScreen(
 }
 
 @Composable
-fun SearchResultList(searchResults: List<SearchResultUI>, modifier: Modifier = Modifier) {
+fun SearchResultList(searchResults: List<SearchResultUI>,
+                     modifier: Modifier = Modifier,
+                     onProductDetails : (SearchResultUI) -> Unit,) {
     LazyColumn(modifier = modifier) {
-        items(searchResults) { result ->
-            val thumbnailUrl = result.thumbnail.replace("http://", "https://")
+        items(searchResults) { searchResultItem ->
+            val thumbnailUrl = searchResultItem.thumbnail.replace("http://", "https://")
 
             Card(
                 modifier = Modifier
@@ -206,47 +227,70 @@ fun SearchResultList(searchResults: List<SearchResultUI>, modifier: Modifier = M
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min)
+                        .clickable {
+                            onProductDetails(searchResultItem)
+                        }
                 ) {
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .width(80.dp)
-                            .background(Color(0xFFFFE600)),
-                        contentAlignment = Alignment.Center
-                    ) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(thumbnailUrl)
                                 .crossfade(true)
                                 .build(),
-                            contentDescription = result.title,
+                            contentDescription = searchResultItem.title,
                             modifier = Modifier
                                 .size(64.dp)
                                 .clip(RoundedCornerShape(4.dp)),
                             contentScale = ContentScale.Crop,
                         )
-                    }
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .weight(1f)
-                            .background(Color.White)
-                            .padding(start = 16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
                         Text(
-                            text = result.title,
+                            text = searchResultItem.title,
                             fontSize = 18.sp,
                             color = Color.Black,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis
                         )
-                    }
                 }
             }
         }
     }
 }
+
+@Preview
+@Composable
+fun SearchResultListPreview() {
+    SearchResultList(
+        searchResults = listOf(
+            SearchResultUI(
+                title = "title",
+                price = 123.0,
+                categoryName = "category",
+                sellerResponse = Seller(
+                    nickname = "seller",
+                    id = 123,
+                ),
+                thumbnail = "thumbnail",
+                id = "123",
+                buyingMode = "buyingMode",
+                condition = "condition",
+                acceptsMercadopago = true,
+                availableQuantity = 123,
+                catalogListing = true,
+                listingTypeId = "listingTypeId",
+                officialStoreId = 123,
+                officialStoreName = "officialStoreName",
+                permalink = "permalink",
+                salePriceResponse = SalePrice(
+                    currencyId = "currencyId",
+                    amount = 123.0,
+                    paymentMethodType = "paymentMethodType",
+                    priceId = "123",
+                    regularAmount = 123.0,
+                    type = "type"
+                )
+
+        ),
+    ),
+        onProductDetails =  {})
+}
+
 
