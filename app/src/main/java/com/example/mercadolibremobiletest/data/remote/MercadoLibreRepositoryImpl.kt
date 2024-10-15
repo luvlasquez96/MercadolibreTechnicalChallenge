@@ -1,7 +1,6 @@
 package com.example.mercadolibremobiletest.data.remote
 
 import com.example.mercadolibremobiletest.data.MercadoLibreRepository
-import com.example.mercadolibremobiletest.data.local.LocalDataSource
 import com.example.mercadolibremobiletest.data.remote.mapper.toCategoriesItem
 import com.example.mercadolibremobiletest.data.remote.mapper.toCategoryDetails
 import com.example.mercadolibremobiletest.data.remote.mapper.toItem
@@ -12,7 +11,6 @@ import javax.inject.Inject
 
 class MercadoLibreRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
 ) : MercadoLibreRepository {
 
     override suspend fun getCategoriesListAsync(): Result<List<CategoriesItem>> {

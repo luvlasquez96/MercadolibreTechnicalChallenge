@@ -25,8 +25,7 @@ object MercadoLibreModule {
     @Provides
     fun provideMercadoLibreRepository(
         remoteDataSource: RemoteDataSource,
-        localDataSource: LocalDataSource
     ): MercadoLibreRepository {
-        return MercadoLibreRepositoryImpl(remoteDataSource, localDataSource)
+        return MercadoLibreRepositoryImpl(remoteDataSource)
     }
 }
