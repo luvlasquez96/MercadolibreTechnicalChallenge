@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class ItemResponse(
     @SerializedName("paging") val pagingResponse: PagingResponse,
     val query: String,
-    @SerializedName("results") val searchResultRespons: List<SearchResultResponse>,
+    @SerializedName("results") val searchResultResponse: List<SearchResultResponse>,
     @SerializedName("site_id") val siteId: String,
 )

@@ -40,7 +40,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mercadolibremobiletest.R
 import com.example.mercadolibremobiletest.domain.model.MenuItem
@@ -60,10 +59,12 @@ fun MenuContentScreen(
 ) {
     var selectedItem by remember { mutableStateOf<MenuItem?>(null) }
 
-    Column (modifier = modifier
-        .background(Color.White)
-        .fillMaxHeight()
-        .fillMaxWidth(0.85f)) {
+    Column(
+        modifier = modifier
+            .background(Color.White)
+            .fillMaxHeight()
+            .fillMaxWidth(0.85f)
+    ) {
         Box(
             modifier = modifier
                 .fillMaxWidth()

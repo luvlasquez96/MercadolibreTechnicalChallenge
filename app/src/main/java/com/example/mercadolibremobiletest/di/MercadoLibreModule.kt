@@ -2,7 +2,6 @@ package com.example.mercadolibremobiletest.di
 
 import com.example.mercadolibremobiletest.data.MercadoLibreRepository
 import com.example.mercadolibremobiletest.data.dataAccess.MercadoLibreService
-import com.example.mercadolibremobiletest.data.local.LocalDataSource
 import com.example.mercadolibremobiletest.data.remote.MercadoLibreRepositoryImpl
 import com.example.mercadolibremobiletest.data.remote.RemoteDataSource
 import dagger.Module

@@ -194,6 +194,7 @@ fun HomeScreen(
                 is SearchItemsViewModel.ViewState.Loading -> {
                     ShimmerLoadingView()
                 }
+
                 is SearchItemsViewModel.ViewState.NoItemsFound -> {
                     val noItemsFoundMessage =
                         (viewState as SearchItemsViewModel.ViewState.NoItemsFound).message
@@ -247,11 +248,12 @@ fun HomeScreen(
                             val attributesJson = gson.toJson(searchResultItem.attribute)
 
 
-                            navController.navigate("productDetail/${searchResultItem.title}/" +
-                                    "${searchResultItem.price}/${searchResultItem.categoryName}/" +
-                                    "${searchResultItem.sellerResponse.nickname}/${encodedThumbnail}/" +
-                                    "${searchResultItem.condition}/${searchResultItem.availableQuantity}/" +
-                                    attributesJson
+                            navController.navigate(
+                                "productDetail/${searchResultItem.title}/" +
+                                        "${searchResultItem.price}/${searchResultItem.categoryName}/" +
+                                        "${searchResultItem.sellerResponse.nickname}/${encodedThumbnail}/" +
+                                        "${searchResultItem.condition}/${searchResultItem.availableQuantity}/" +
+                                        attributesJson
                             )
 
                         }
@@ -354,5 +356,3 @@ fun SearchResultListPreview() {
         ),
         onProductDetails = {})
 }
-
-

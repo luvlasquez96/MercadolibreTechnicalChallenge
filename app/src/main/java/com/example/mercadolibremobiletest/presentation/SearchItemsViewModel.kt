@@ -23,17 +23,6 @@ class SearchItemsViewModel @Inject constructor(
     private var _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
     val viewState = _viewState.asStateFlow()
 
-    private fun getCategoryDetails(categoryId: String) {
-        viewModelScope.launch {
-            try {
-                val categoryDetails = getCategoriesDetailsUseCase(categoryId).getOrThrow()
-            } catch (e: Exception) {
-                Timber.e(e, "Error fetching category details for $categoryId")
-                _viewState.value = ViewState.Error("Unable to fetch category details")
-            }
-        }
-    }
-
     fun getItemsList(query: String) {
         _viewState.value = ViewState.Loading
         viewModelScope.launch {

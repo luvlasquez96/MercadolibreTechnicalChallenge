@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.example.mercadolibretest.design_system.theme.Layout
 import com.example.mercadolibretest.design_system.theme.Padding
 
@@ -87,8 +86,16 @@ fun ShimmerLoadingView(modifier: Modifier = Modifier) {
                             .padding(Padding.Small.S),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        ShimmerEffect(modifier = Modifier.fillMaxWidth(0.9f).height(Layout.Spacing.Small.L))
-                        ShimmerEffect(modifier = Modifier.fillMaxWidth(0.7f).height(Layout.Spacing.Small.L))
+                        ShimmerEffect(
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .height(Layout.Spacing.Small.L)
+                        )
+                        ShimmerEffect(
+                            modifier = Modifier
+                                .fillMaxWidth(0.7f)
+                                .height(Layout.Spacing.Small.L)
+                        )
                     }
                 }
             }

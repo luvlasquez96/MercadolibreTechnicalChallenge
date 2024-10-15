@@ -1,7 +1,5 @@
 package com.example.mercadolibremobiletest.domain.model
 
-import com.google.gson.annotations.SerializedName
-
 data class SalePrice(
     val amount: Double,
     val currencyId: String,

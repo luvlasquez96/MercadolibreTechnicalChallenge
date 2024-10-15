@@ -7,7 +7,7 @@ data class Attribute(
     val id: String,
     val name: String,
     val valueName: String?,
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,

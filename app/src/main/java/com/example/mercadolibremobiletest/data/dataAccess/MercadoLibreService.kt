@@ -10,7 +10,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MercadoLibreService {
-
     @GET(Constants.CATEGORIES_URL)
     suspend fun getCategoriesListAsync(): Response<CategoriesListResponse>
 

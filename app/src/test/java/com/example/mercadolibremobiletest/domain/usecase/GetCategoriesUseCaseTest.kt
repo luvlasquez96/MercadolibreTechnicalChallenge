@@ -9,11 +9,12 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class GetCategoriesUseCaseTest{
+class GetCategoriesUseCaseTest {
     @MockK
     private lateinit var repository: MercadoLibreRepository
 
@@ -36,10 +37,10 @@ class GetCategoriesUseCaseTest{
 
             val result = getCategoriesUseCase.invoke()
             assertTrue(result.isSuccess)
-            result.onSuccess{
+            result.onSuccess {
                 assertEquals(it, expectedCategories)
             }
-            coVerify (exactly = 1){ repository.getCategoriesListAsync()}
+            coVerify(exactly = 1) { repository.getCategoriesListAsync() }
         }
     }
 
@@ -56,7 +57,7 @@ class GetCategoriesUseCaseTest{
             result.onFailure {
                 assertEquals(it, expectedThrowable)
             }
-            coVerify (exactly = 1){ repository.getCategoriesListAsync()}
+            coVerify(exactly = 1) { repository.getCategoriesListAsync() }
         }
     }
 }

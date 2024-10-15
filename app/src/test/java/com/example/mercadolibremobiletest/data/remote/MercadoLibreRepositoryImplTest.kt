@@ -55,5 +55,4 @@ class MercadoLibreRepositoryImplTest {
             coVerify(exactly = 1) { remoteDataSource.getItemsListAsync("query") }
         }
     }
-
 }

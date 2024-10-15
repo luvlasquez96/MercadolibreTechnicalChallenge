@@ -6,7 +6,7 @@ import android.os.Parcelable
 data class CategoriesItem(
     val id: String,
     val name: String
-): Parcelable {
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

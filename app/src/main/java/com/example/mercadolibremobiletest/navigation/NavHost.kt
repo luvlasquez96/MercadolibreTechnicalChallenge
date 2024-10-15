@@ -16,9 +16,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun NavHost(navController: NavHostController,
-            drawerState: DrawerState,
-            scope: CoroutineScope, modifier : Modifier) {
+fun NavHost(
+    navController: NavHostController,
+    drawerState: DrawerState,
+    scope: CoroutineScope, modifier: Modifier
+) {
     NavHost(
         navController = navController,
         startDestination = ScreensRoute.SCREEN_1.name
@@ -45,11 +47,13 @@ fun NavHost(navController: NavHostController,
             val seller = backStackEntry.arguments?.getString("seller") ?: ""
             val thumbnail = backStackEntry.arguments?.getString("thumbnail") ?: ""
             val condition = backStackEntry.arguments?.getString("condition") ?: ""
-            val availableQuantity = backStackEntry.arguments?.getString("availableQuantity")?.toIntOrNull() ?: 0
+            val availableQuantity =
+                backStackEntry.arguments?.getString("availableQuantity")?.toIntOrNull() ?: 0
             val gson = Gson()
             val attributesJson = backStackEntry.arguments?.getString("attributesJson") ?: "[]"
 
-            val attributes: List<Attribute> = gson.fromJson(attributesJson, Array<Attribute>::class.java).toList()
+            val attributes: List<Attribute> =
+                gson.fromJson(attributesJson, Array<Attribute>::class.java).toList()
 
             ProductDetailsScreen(
                 title = title,
