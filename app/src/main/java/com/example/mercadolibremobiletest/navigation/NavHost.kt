@@ -36,19 +36,24 @@ fun NavHost(navController: NavHostController,
                 categories = listOf()
             )
         }
-        composable("productDetail/{title}/{price}/{category}/{seller}/{thumbnail}") { backStackEntry ->
+        composable("productDetail/{title}/{price}/{category}/{seller}/{thumbnail}/{condition}/{availableQuantity}") { backStackEntry ->
             val title = backStackEntry.arguments?.getString("title") ?: ""
             val price = backStackEntry.arguments?.getString("price")?.toDoubleOrNull() ?: 0.0
             val category = backStackEntry.arguments?.getString("category") ?: ""
             val seller = backStackEntry.arguments?.getString("seller") ?: ""
             val thumbnail = backStackEntry.arguments?.getString("thumbnail") ?: ""
+            val condition = backStackEntry.arguments?.getString("condition") ?: ""
+            val availableQuantity = backStackEntry.arguments?.getString("availableQuantity")?.toIntOrNull() ?: 0
 
             ProductDetailsScreen(
                 title = title,
                 price = price,
                 category = category,
                 seller = seller,
-                thumbnail = thumbnail
+                thumbnail = thumbnail,
+                condition = condition,
+                availableQuantity = availableQuantity,
+                onBack = { navController.popBackStack() }
             )
         }
     }

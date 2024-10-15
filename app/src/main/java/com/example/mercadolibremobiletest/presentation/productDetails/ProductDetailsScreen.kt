@@ -1,7 +1,8 @@
 package com.example.mercadolibremobiletest.presentation.productDetails
 
-import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,78 +11,147 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.mercadolibremobiletest.utils.formatPrice
 import timber.log.Timber
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsScreen(
     title: String,
     price: Double,
     category: String,
     seller: String,
-    thumbnail: String
+    thumbnail: String,
+    condition: String,
+    availableQuantity: Int,
+    onBack: () -> Unit,
 ) {
     Timber.tag("ProductDetailsScreen").d("Navigating to ProductDetailsScreen with title: %s", title)
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = title,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
 
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(thumbnail)
-                .crossfade(true)
-                .build(),
-            contentDescription = title,
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Detalles del Producto") },
+                navigationIcon = {
+                    IconButton(onClick = { onBack() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                },
+            )
+        }
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .size(200.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+                .fillMaxSize()
+                .padding(paddingValues) // Add padding to avoid overlap with the top bar
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = title,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
 
-        Text(
-            text = "Precio: $${price.format(2)}",
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFFFFC107),
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
+            Text(
+                text = condition,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Gray
+            )
 
-        Text(
-            text = "Categoría: $category",
-            fontSize = 16.sp,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(thumbnail)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = title,
+                modifier = Modifier
+                    .height(250.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .size(1080.dp, 1080.dp)
+                    .fillMaxWidth(),
+                contentScale = ContentScale.Fit,
+                filterQuality = FilterQuality.High
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = "Vendedor: $seller",
-            fontSize = 16.sp,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+            Text(
+                text = price.formatPrice(),
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Text(
+                text = "Categoría: $category",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Text(
+                text = "Vendedor: $seller",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .background(Color(0xFFE0E0E0), RoundedCornerShape(8.dp))
+                    .padding(12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Cantidad Disponible: $availableQuantity",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
+        }
     }
 }
 
-fun Double.format(digits: Int) = "%.${digits}f".format(this)
+@Preview(showBackground = true)
+@Composable
+fun PreviewProductDetailsScreen() {
+    ProductDetailsScreen(
+        title = "Product Title Example",
+        price = 99.99,
+        category = "Electronics",
+        seller = "Seller Name",
+        thumbnail = "https://via.placeholder.com/200",
+        condition = "Nuevo",
+        availableQuantity = 10,
+        onBack = { }
+    )
+}
