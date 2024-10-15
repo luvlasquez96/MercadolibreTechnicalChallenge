@@ -2,13 +2,16 @@ package com.example.mercadolibremobiletest.presentation.home
 
 import android.app.Activity
 import android.net.Uri
+import android.os.Bundle
 import android.view.ViewTreeObserver
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -56,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mercadolibremobiletest.domain.model.SalePrice
@@ -63,6 +68,8 @@ import com.example.mercadolibremobiletest.domain.model.SearchResultUI
 import com.example.mercadolibremobiletest.domain.model.Seller
 import com.example.mercadolibremobiletest.presentation.SearchItemsViewModel
 import com.example.mercadolibremobiletest.utils.toHttpsUrl
+import com.example.mercadolibretest.design_system.theme.Padding
+import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -123,7 +130,7 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
-                            .padding(8.dp), // Adjust padding as needed
+                            .padding(8.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -152,8 +159,8 @@ fun HomeScreen(
                                     )
                                 },
                                 textStyle = TextStyle(
-                                    fontSize = 18.sp, // Set your desired font size
-                                    color = Color.Black // Optional: set text color
+                                    fontSize = 18.sp,
+                                    color = Color.Black
                                 ),
                                 colors = TextFieldDefaults.colors(
                                     focusedContainerColor = Color.Transparent,
@@ -170,17 +177,15 @@ fun HomeScreen(
                                     )
                                 },
                                 modifier = Modifier
-                                    .fillMaxWidth() // Make sure it fills the width
-                                    .height(56.dp) // Match height with TopAppBar
-                                    .padding(horizontal = 8.dp) // Padding to prevent clipping
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                                    .padding(horizontal = Padding.Small.S)
                                     .clip(RoundedCornerShape(24.dp))
                             )
                         },
                         expanded = active,
                         onExpandedChange = { active = it },
-                        colors = SearchBarDefaults.colors(
-                            containerColor = Color(0xFFF5F5F5),
-                        ),
+                        colors = SearchBarDefaults.colors(),
                         content = {},
                     )
                 },
@@ -191,17 +196,42 @@ fun HomeScreen(
                 is SearchItemsViewModel.ViewState.Loading -> {
                     ShimmerLoadingView()
                 }
+                is SearchItemsViewModel.ViewState.NoItemsFound -> {
+                    val noItemsFoundMessage =
+                        (viewState as SearchItemsViewModel.ViewState.NoItemsFound).message
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = noItemsFoundMessage,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
 
                 is SearchItemsViewModel.ViewState.Error -> {
                     val errorMessage =
                         (viewState as SearchItemsViewModel.ViewState.Error).errorMessage
-                    Text(
-                        text = errorMessage,
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues),
-                        textAlign = TextAlign.Center
-                    )
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = errorMessage,
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = { searchItemsViewModel.getItemsList(searchQuery) }) {
+                            Text("Retry")
+                        }
+                    }
                 }
 
                 is SearchItemsViewModel.ViewState.SearchResultLoaded -> {
@@ -215,15 +245,17 @@ fun HomeScreen(
                         onProductDetails = { searchResultItem ->
                             val thumbnailUrl = searchResultItem.thumbnail.toHttpsUrl()
                             val encodedThumbnail = Uri.encode(thumbnailUrl)
+                            val gson = Gson()
+                            val attributesJson = gson.toJson(searchResultItem.attribute)
 
-                            navController.navigate(
-                                "productDetail/${searchResultItem.title}/" +
-                                        "${searchResultItem.price}/" +
-                                        "${searchResultItem.categoryName}/" +
-                                        "${searchResultItem.sellerResponse.nickname}/" +
-                                        "${encodedThumbnail}/${searchResultItem.condition}/" +
-                                        "${searchResultItem.availableQuantity}"
+
+                            navController.navigate("productDetail/${searchResultItem.title}/" +
+                                    "${searchResultItem.price}/${searchResultItem.categoryName}/" +
+                                    "${searchResultItem.sellerResponse.nickname}/${encodedThumbnail}/" +
+                                    "${searchResultItem.condition}/${searchResultItem.availableQuantity}/" +
+                                    attributesJson
                             )
+
                         }
                     )
                 }
@@ -318,8 +350,8 @@ fun SearchResultListPreview() {
                     priceId = "123",
                     regularAmount = 123.0,
                     type = "type"
-                )
-
+                ),
+                attribute = listOf()
             ),
         ),
         onProductDetails = {})

@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.mercadolibremobiletest.domain.model.Attribute
 import com.example.mercadolibremobiletest.utils.formatPrice
 import timber.log.Timber
 
@@ -46,9 +47,12 @@ fun ProductDetailsScreen(
     thumbnail: String,
     condition: String,
     availableQuantity: Int,
+    attribute: List<Attribute>,
     onBack: () -> Unit,
 ) {
-    Timber.tag("ProductDetailsScreen").d("Navigating to ProductDetailsScreen with title: %s", title)
+
+    val brand = attribute.find { it.name.lowercase() == "marca" }?.valueName ?: "Desconocida"
+    val color = attribute.find { it.name.lowercase() == "color" }?.valueName ?: "Sin especificar"
 
     Scaffold(
         topBar = {
@@ -68,7 +72,7 @@ fun ProductDetailsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues) // Add padding to avoid overlap with the top bar
+                .padding(paddingValues)
                 .padding(16.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
@@ -126,6 +130,29 @@ fun ProductDetailsScreen(
             Box(
                 modifier = Modifier
                     .padding(vertical = 8.dp)
+                    .background(Color(0xFFF5F5F5), RoundedCornerShape(8.dp))
+                    .padding(12.dp),
+            ) {
+                Column {
+                    Text(
+                        text = "Marca: $brand",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        text = "Color: $color",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
                     .background(Color(0xFFE0E0E0), RoundedCornerShape(8.dp))
                     .padding(12.dp),
                 contentAlignment = Alignment.Center
@@ -152,6 +179,7 @@ fun PreviewProductDetailsScreen() {
         thumbnail = "https://via.placeholder.com/200",
         condition = "Nuevo",
         availableQuantity = 10,
+        attribute = emptyList(),
         onBack = { }
     )
 }

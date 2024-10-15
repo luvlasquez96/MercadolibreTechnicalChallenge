@@ -93,27 +93,36 @@ dependencies {
     //Coil
     implementation ("io.coil-kt:coil-compose:2.2.2")
     implementation ("com.squareup.picasso:picasso:2.5.2")
+    //Gson
+    implementation ("com.google.code.gson:gson:2.10.1")
 
     //Google Fonts
     implementation ("androidx.compose.ui:ui-text-google-fonts:1.7.3")
 
-    //Test
-    testImplementation ("androidx.test:core:1.5.0")
-    testImplementation ("androidx.arch.core:core-testing:2.2.0")
-    testImplementation ("junit:junit:4.12")
-    testImplementation ("org.junit.jupiter:junit-jupiter")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    testImplementation ("com.google.truth:truth:1.1.3")
-    testImplementation ("io.mockk:mockk:1.13.4")
-    testImplementation ("io.mockk:mockk-android:1.13.4")
-    testImplementation ("io.mockk:mockk-agent:1.13.4")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.1.0-alpha04")
-    testImplementation ("app.cash.turbine:turbine:0.7.0")
+    implementation( project(":design_system"))
 
+    //Test
+    // Turbine for Flow testing
+    testImplementation("app.cash.turbine:turbine:1.0.0")
+
+    // JUnit 4
     testImplementation("junit:junit:4.13.2")
+
+    // Kotlin Coroutines Test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
+    // Truth assertion library
+    testImplementation("com.google.truth:truth:1.1.3")
+
+    // MockK for mocking
+    testImplementation("io.mockk:mockk:1.13.4")
+
+    // Android specific test dependencies
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    // Compose testing dependencies
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")

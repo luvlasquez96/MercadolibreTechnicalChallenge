@@ -17,4 +17,5 @@ data class SearchResultUI(
     val sellerResponse: Seller,
     val thumbnail: String,
     val title: String,
+    val attribute: List<Attribute>
 )

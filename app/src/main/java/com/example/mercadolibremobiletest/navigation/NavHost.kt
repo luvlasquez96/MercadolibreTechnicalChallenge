@@ -6,10 +6,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.mercadolibremobiletest.domain.model.Attribute
 import com.example.mercadolibremobiletest.domain.model.ScreensRoute
 import com.example.mercadolibremobiletest.presentation.category.CategoriesScreen
 import com.example.mercadolibremobiletest.presentation.home.HomeScreen
 import com.example.mercadolibremobiletest.presentation.productDetails.ProductDetailsScreen
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -36,7 +38,7 @@ fun NavHost(navController: NavHostController,
                 categories = listOf()
             )
         }
-        composable("productDetail/{title}/{price}/{category}/{seller}/{thumbnail}/{condition}/{availableQuantity}") { backStackEntry ->
+        composable("productDetail/{title}/{price}/{category}/{seller}/{thumbnail}/{condition}/{availableQuantity}/{attributesJson}") { backStackEntry ->
             val title = backStackEntry.arguments?.getString("title") ?: ""
             val price = backStackEntry.arguments?.getString("price")?.toDoubleOrNull() ?: 0.0
             val category = backStackEntry.arguments?.getString("category") ?: ""
@@ -44,6 +46,10 @@ fun NavHost(navController: NavHostController,
             val thumbnail = backStackEntry.arguments?.getString("thumbnail") ?: ""
             val condition = backStackEntry.arguments?.getString("condition") ?: ""
             val availableQuantity = backStackEntry.arguments?.getString("availableQuantity")?.toIntOrNull() ?: 0
+            val gson = Gson()
+            val attributesJson = backStackEntry.arguments?.getString("attributesJson") ?: "[]"
+
+            val attributes: List<Attribute> = gson.fromJson(attributesJson, Array<Attribute>::class.java).toList()
 
             ProductDetailsScreen(
                 title = title,
@@ -53,6 +59,7 @@ fun NavHost(navController: NavHostController,
                 thumbnail = thumbnail,
                 condition = condition,
                 availableQuantity = availableQuantity,
+                attribute = attributes,
                 onBack = { navController.popBackStack() }
             )
         }

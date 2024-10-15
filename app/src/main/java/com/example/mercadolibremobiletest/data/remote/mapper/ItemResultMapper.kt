@@ -1,27 +1,30 @@
 package com.example.mercadolibremobiletest.data.remote.mapper
 
+import com.example.mercadolibremobiletest.data.remote.model.AttributeResponse
 import com.example.mercadolibremobiletest.data.remote.model.ItemResponse
 import com.example.mercadolibremobiletest.data.remote.model.PagingResponse
-import com.example.mercadolibremobiletest.data.remote.model.ResultResponse
+import com.example.mercadolibremobiletest.data.remote.model.SearchResultResponse
 import com.example.mercadolibremobiletest.data.remote.model.SalePriceResponse
 import com.example.mercadolibremobiletest.data.remote.model.SellerResponse
+import com.example.mercadolibremobiletest.domain.model.Attribute
 import com.example.mercadolibremobiletest.domain.model.Item
 import com.example.mercadolibremobiletest.domain.model.Paging
-import com.example.mercadolibremobiletest.domain.model.Result
+import com.example.mercadolibremobiletest.domain.model.SearchResult
 import com.example.mercadolibremobiletest.domain.model.SalePrice
+import com.example.mercadolibremobiletest.domain.model.SearchResultUI
 import com.example.mercadolibremobiletest.domain.model.Seller
 
 fun ItemResponse.toItem(): Item{
     return Item(
         pagingResponse = this.pagingResponse.toPaging(),
         query = this.query,
-        resultResponses = this.resultResponses.map { it.toResult() },
+        searchResultResponse = this.searchResultRespons.map { it.toResult() },
         siteId = this.siteId
     )
 }
 
-fun ResultResponse.toResult(): Result{
-    return Result(
+fun SearchResultResponse.toResult(): SearchResult{
+    return SearchResult(
         id = this.id,
         title = this.title,
         price = this.price,
@@ -42,7 +45,8 @@ fun ResultResponse.toResult(): Result{
         categoryId = this.categoryId,
         inventoryId = this.inventoryId,
         salePriceResponse = this.salePriceResponse.toSalePrice(),
-        sanitizedTitle = this.sanitizedTitle
+        sanitizedTitle = this.sanitizedTitle,
+        attributeResponses = this.attributeResponses.map { it.toAttribute() }
     )
 }
 
@@ -70,5 +74,35 @@ fun PagingResponse.toPaging(): Paging {
         offset = this.offset,
         primaryResults = this.primaryResults,
         total = this.total
+    )
+}
+
+fun AttributeResponse.toAttribute(): Attribute {
+    return Attribute(
+        id = this.id,
+        name = this.name,
+        valueName = this.valueName
+    )
+}
+
+fun SearchResult.toSearchResultUI(): SearchResultUI {
+    return SearchResultUI(
+        acceptsMercadopago = this.acceptsMercadopago,
+        availableQuantity = this.availableQuantity,
+        buyingMode = this.buyingMode,
+        catalogListing = this.catalogListing,
+        categoryName = this.categoryId,
+        condition = this.condition,
+        id = this.id,
+        listingTypeId = this.listingTypeId,
+        officialStoreId = this.officialStoreId ?: 0,
+        officialStoreName = this.officialStoreName ?: "null",
+        permalink = this.permalink ?: "null",
+        price = this.price,
+        salePriceResponse = this.salePriceResponse,
+        sellerResponse = this.sellerResponse,
+        thumbnail = this.thumbnail,
+        title = this.title,
+        attribute = this.attributeResponses
     )
 }

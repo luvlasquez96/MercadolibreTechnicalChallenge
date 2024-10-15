@@ -1,11 +1,9 @@
 package com.example.mercadolibremobiletest.domain.model
 
-import com.example.mercadolibremobiletest.data.remote.model.SalePriceResponse
-import com.example.mercadolibremobiletest.data.remote.model.SellerResponse
-
-data class Result(
+data class SearchResult(
     val acceptsMercadopago: Boolean,
     val availableQuantity: Int,
+    val attributeResponses: List<Attribute>,
     val buyingMode: String,
     val catalogListing: Boolean,
     val categoryId: String,

@@ -3,9 +3,10 @@ package com.example.mercadolibremobiletest.data.remote.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ResultResponse(
+data class SearchResultResponse(
     @Expose @SerializedName("accepts_mercadopago") val acceptsMercadopago: Boolean,
     @Expose @SerializedName("available_quantity") val availableQuantity: Int,
+    @SerializedName("attributes") val attributeResponses: List<AttributeResponse>,
     @Expose @SerializedName("buying_mode") val buyingMode: String,
     @Expose @SerializedName("catalog_listing") val catalogListing: Boolean,
     @Expose @SerializedName("category_id") val categoryId: String,
