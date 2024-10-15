@@ -135,25 +135,23 @@ fun CategoryItem(categoryName: String, categoryImage: String) {
     ) {
         Card(
             modifier = Modifier
-                .size(width = 120.dp, height = 180.dp)
+                .size(width = Layout.Spacing.Large.L, height = Layout.Spacing.Large.XXl)
                 .clickable {}
         ) {
             Column {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(100.dp)
+                        .height(Layout.Spacing.Size.Box)
                         .background(Color.LightGray),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Use a loading state to handle the image display
                     var isLoading by remember { mutableStateOf(true) }
                     var hasError by remember { mutableStateOf(false) }
 
                     if (isLoading) {
-                        CircularProgressIndicator() // Show loading indicator
+                        CircularProgressIndicator()
                     }
-
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(categoryImage)
@@ -162,22 +160,18 @@ fun CategoryItem(categoryName: String, categoryImage: String) {
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(4.dp)),
+                            .padding(Padding.Small.S)
+                            .clip(RoundedCornerShape(Layout.Spacing.Small.Xs)),
                         contentScale = ContentScale.Crop,
                         onSuccess = {
-                            // When the image successfully loads, stop showing the loading indicator
                             isLoading = false
                             hasError = false
                         },
                         onError = {
-                            // In case of an error, stop loading and show the error state
                             isLoading = false
                             hasError = true
                         }
                     )
-
-                    // Display error message if there was an error
                     if (hasError) {
                         Text(
                             text = "Image not available",
@@ -187,8 +181,6 @@ fun CategoryItem(categoryName: String, categoryImage: String) {
                         )
                     }
                 }
-
-                // Category name box
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -209,7 +201,6 @@ fun CategoryItem(categoryName: String, categoryImage: String) {
         }
     }
 }
-
 
 @Preview
 @Composable

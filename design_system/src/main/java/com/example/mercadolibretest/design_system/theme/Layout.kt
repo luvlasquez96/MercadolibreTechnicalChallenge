@@ -39,7 +39,9 @@ object Layout {
             val L = 120.dp
 
             val XL = 150.dp
-            val XXl = 250.dp
+
+            val XXl = 180.dp
+            val XXXl = 250.dp
         }
 
         object Grid {
@@ -49,6 +51,7 @@ object Layout {
 
         object Size {
             val Icon = 1080.dp
+            val Box = 100.dp
         }
     }
 }

@@ -108,7 +108,7 @@ fun ProductDetailsScreen(
                     .build(),
                 contentDescription = title,
                 modifier = Modifier
-                    .height(Layout.Spacing.Large.XXl)
+                    .height(Layout.Spacing.Large.XXXl)
                     .clip(RoundedCornerShape(Layout.Spacing.Small.S))
                     .size(Layout.Spacing.Size.Icon, Layout.Spacing.Size.Icon)
                     .fillMaxWidth(),
