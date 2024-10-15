@@ -2,7 +2,6 @@ package com.example.mercadolibremobiletest.presentation.home
 
 import android.app.Activity
 import android.net.Uri
-import android.os.Bundle
 import android.view.ViewTreeObserver
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -56,11 +55,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.mercadolibremobiletest.domain.model.SalePrice
@@ -68,6 +65,7 @@ import com.example.mercadolibremobiletest.domain.model.SearchResultUI
 import com.example.mercadolibremobiletest.domain.model.Seller
 import com.example.mercadolibremobiletest.presentation.SearchItemsViewModel
 import com.example.mercadolibremobiletest.utils.toHttpsUrl
+import com.example.mercadolibretest.design_system.theme.Layout
 import com.example.mercadolibretest.design_system.theme.Padding
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
@@ -122,7 +120,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                modifier = Modifier.height(68.dp),
+                modifier = Modifier.height(Layout.Spacing.Large.S),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFFFFE600)
                 ),
@@ -130,14 +128,14 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
-                            .padding(8.dp),
+                            .padding(Padding.Small.S),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.Menu,
                             contentDescription = "Menu",
                             modifier = Modifier
-                                .padding(8.dp)
+                                .padding(Padding.Small.S)
                                 .clickable { openDrawer() },
                             tint = Color.Black
                         )
@@ -178,9 +176,9 @@ fun HomeScreen(
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(56.dp)
+                                    .height(Layout.Spacing.Medium.XL)
                                     .padding(horizontal = Padding.Small.S)
-                                    .clip(RoundedCornerShape(24.dp))
+                                    .clip(RoundedCornerShape(Layout.Spacing.Medium.S))
                             )
                         },
                         expanded = active,
@@ -227,7 +225,7 @@ fun HomeScreen(
                             text = errorMessage,
                             textAlign = TextAlign.Center
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(Layout.Spacing.Small.L))
                         Button(onClick = { searchItemsViewModel.getItemsList(searchQuery) }) {
                             Text("Retry")
                         }
@@ -277,21 +275,21 @@ fun SearchResultList(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 16.dp)
-                    .shadow(4.dp, RoundedCornerShape(8.dp)),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                shape = RoundedCornerShape(12.dp),
+                    .padding(vertical = Padding.Small.S, horizontal = Padding.Small.L)
+                    .shadow(Layout.Spacing.Small.Xs, RoundedCornerShape(Layout.Spacing.Small.S)),
+                elevation = CardDefaults.cardElevation(defaultElevation = Layout.Spacing.Small.Xs),
+                shape = RoundedCornerShape(Layout.Spacing.Small.M),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(Layout.Spacing.Small.S),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min)
                         .clickable {
                             onProductDetails(searchResultItem)
                         }
-                        .padding(16.dp)
+                        .padding(Padding.Small.L)
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
@@ -300,8 +298,8 @@ fun SearchResultList(
                             .build(),
                         contentDescription = searchResultItem.title,
                         modifier = Modifier
-                            .size(80.dp)
-                            .clip(RoundedCornerShape(8.dp))
+                            .size(Layout.Spacing.Large.M)
+                            .clip(RoundedCornerShape(Layout.Spacing.Small.S))
                             .background(Color.LightGray),
                         contentScale = ContentScale.Crop,
                     )

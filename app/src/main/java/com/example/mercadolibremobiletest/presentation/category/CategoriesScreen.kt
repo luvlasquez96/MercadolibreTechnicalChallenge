@@ -31,6 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mercadolibremobiletest.domain.model.CategoriesItem
+import com.example.mercadolibretest.design_system.theme.Layout
+import com.example.mercadolibretest.design_system.theme.Padding
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,9 +50,9 @@ fun CategoriesScreen(categories: List<CategoriesItem>) {
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(Padding.Small.L),
+            horizontalArrangement = Arrangement.spacedBy(Layout.Spacing.Small.L),
+            verticalArrangement = Arrangement.spacedBy(Layout.Spacing.Small.L),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
@@ -75,17 +77,17 @@ fun CategoryItem(categoryName: String, categoryImage: String) {
         Surface(
             shape = CircleShape,
             color = Color.LightGray,
-            modifier = Modifier.size(80.dp),
+            modifier = Modifier.size(Layout.Spacing.Large.M),
             shadowElevation = 4.dp
         ) {
             Image(
                 painter = painterResource(id = categoryImage.toInt()),
                 contentDescription = categoryName,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(Layout.Spacing.Large.Xs)
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(Layout.Spacing.Small.S))
         Text(
             text = categoryName,
             fontWeight = FontWeight.Bold,

@@ -1,9 +1,11 @@
 package com.example.mercadolibremobiletest.presentation.productDetails
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,15 +29,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.mercadolibremobiletest.R
 import com.example.mercadolibremobiletest.domain.model.Attribute
 import com.example.mercadolibremobiletest.utils.formatPrice
-import timber.log.Timber
+import com.example.mercadolibretest.design_system.theme.Layout
+import com.example.mercadolibretest.design_system.theme.Padding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,7 +80,7 @@ fun ProductDetailsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp),
+                .padding(Padding.Small.L),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -81,13 +88,13 @@ fun ProductDetailsScreen(
                 text = title,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = Padding.Small.S)
             )
 
             Text(
                 text = condition,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(bottom = 16.dp),
+                modifier = Modifier.padding(bottom = Padding.Small.L),
                 color = Color.Gray
             )
 
@@ -98,53 +105,69 @@ fun ProductDetailsScreen(
                     .build(),
                 contentDescription = title,
                 modifier = Modifier
-                    .height(250.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .size(1080.dp, 1080.dp)
+                    .height(Layout.Spacing.Large.XXl)
+                    .clip(RoundedCornerShape(Layout.Spacing.Small.S))
+                    .size(Layout.Spacing.Size.Icon, Layout.Spacing.Size.Icon)
                     .fillMaxWidth(),
                 contentScale = ContentScale.Fit,
                 filterQuality = FilterQuality.High
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(Layout.Spacing.Small.L))
 
             Text(
                 text = price.formatPrice(),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = Padding.Small.S)
             )
 
             Text(
                 text = "Categoría: $category",
                 fontSize = 16.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = Layout.Spacing.Small.S)
             )
 
-            Text(
-                text = "Vendedor: $seller",
-                fontSize = 16.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            Row {
+                Text(
+                    text = "Tienda oficial $seller",
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(bottom = Layout.Spacing.Small.L)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_verify),
+                    contentDescription = "Icon",
+                    modifier = Modifier.size(Layout.Spacing.Small.L)
+                )
+            }
 
             Box(
                 modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .background(Color(0xFFF5F5F5), RoundedCornerShape(8.dp))
-                    .padding(12.dp),
+                    .padding(vertical = Padding.Small.S)
+                    .background(Color(0xFFF5F5F5), RoundedCornerShape(Layout.Spacing.Small.S))
+                    .padding(Padding.Small.M),
             ) {
                 Column {
                     Text(
-                        text = "Marca: $brand",
+                        text = buildAnnotatedString {
+                            append("Marca: ")
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(brand)
+                            }
+                        },
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
                         color = Color.Black,
-                        modifier = Modifier.padding(bottom = 8.dp)
+                        modifier = Modifier.padding(bottom = Padding.Small.S)
                     )
+
                     Text(
-                        text = "Color: $color",
+                        text = buildAnnotatedString {
+                            append("Color: ")
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(color)
+                            }
+                        },
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
                 }
@@ -152,9 +175,9 @@ fun ProductDetailsScreen(
 
             Box(
                 modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .background(Color(0xFFE0E0E0), RoundedCornerShape(8.dp))
-                    .padding(12.dp),
+                    .padding(vertical = Padding.Small.S)
+                    .background(Color(0xFFE0E0E0), RoundedCornerShape(Layout.Spacing.Small.S))
+                    .padding(Padding.Small.M),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

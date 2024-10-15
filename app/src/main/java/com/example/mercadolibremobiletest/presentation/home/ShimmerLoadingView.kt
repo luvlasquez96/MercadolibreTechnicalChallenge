@@ -27,6 +27,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.mercadolibretest.design_system.theme.Layout
+import com.example.mercadolibretest.design_system.theme.Padding
 
 @Composable
 fun ShimmerEffect(modifier: Modifier = Modifier) {
@@ -62,10 +64,10 @@ fun ShimmerLoadingView(modifier: Modifier = Modifier) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 16.dp)
-                    .height(80.dp) // Altura del card
-                    .padding(8.dp),
-                shape = RoundedCornerShape(8.dp)
+                    .padding(vertical = Layout.Spacing.Small.S, horizontal = Layout.Spacing.Small.L)
+                    .height(Layout.Spacing.Large.M)
+                    .padding(Padding.Small.S),
+                shape = RoundedCornerShape(Layout.Spacing.Small.S)
             ) {
                 Row(
                     modifier = Modifier.fillMaxSize(),
@@ -73,20 +75,20 @@ fun ShimmerLoadingView(modifier: Modifier = Modifier) {
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(64.dp)
+                            .size(Layout.Spacing.Large.Xs)
                     ) {
                         ShimmerEffect(modifier = Modifier.fillMaxSize())
                     }
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(Layout.Spacing.Small.L))
                     Column(
                         modifier = Modifier
                             .fillMaxHeight()
                             .fillMaxWidth(0.8f)
-                            .padding(8.dp),
+                            .padding(Padding.Small.S),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        ShimmerEffect(modifier = Modifier.fillMaxWidth(0.9f).height(16.dp))
-                        ShimmerEffect(modifier = Modifier.fillMaxWidth(0.7f).height(16.dp))
+                        ShimmerEffect(modifier = Modifier.fillMaxWidth(0.9f).height(Layout.Spacing.Small.L))
+                        ShimmerEffect(modifier = Modifier.fillMaxWidth(0.7f).height(Layout.Spacing.Small.L))
                     }
                 }
             }
