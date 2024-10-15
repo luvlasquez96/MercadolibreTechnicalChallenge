@@ -37,7 +37,7 @@ fun NavHost(
         }
         composable(ScreensRoute.SCREEN_2.name) {
             CategoriesScreen(
-                categories = listOf()
+                onBack = { navController.popBackStack() }
             )
         }
         composable("productDetail/{title}/{price}/{category}/{seller}/{thumbnail}/{condition}/{availableQuantity}/{attributesJson}") { backStackEntry ->
