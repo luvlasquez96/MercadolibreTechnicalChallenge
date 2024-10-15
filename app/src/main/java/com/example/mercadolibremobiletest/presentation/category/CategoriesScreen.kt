@@ -1,6 +1,6 @@
 package com.example.mercadolibremobiletest.presentation.category
 
-import androidx.compose.foundation.Image
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,8 +49,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.mercadolibremobiletest.domain.model.CategoryDetails
 import com.example.mercadolibremobiletest.presentation.CategoryViewModel
@@ -57,13 +56,14 @@ import com.example.mercadolibremobiletest.utils.toHttpsUrl
 import com.example.mercadolibretest.design_system.theme.Layout
 import com.example.mercadolibretest.design_system.theme.Padding
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(onBack: () -> Unit) {
     val categoryViewModel: CategoryViewModel = hiltViewModel()
     val viewState by categoryViewModel.viewState.collectAsState()
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val columns = if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
 
     Scaffold(
         topBar = {
@@ -101,7 +101,7 @@ fun CategoriesScreen(onBack: () -> Unit) {
                 val categories =
                     (viewState as CategoryViewModel.ViewState.CategoriesLoaded).categoriesList
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
+                    columns = GridCells.Fixed(columns),
                     contentPadding = PaddingValues(Padding.Small.L),
                     horizontalArrangement = Arrangement.spacedBy(Layout.Spacing.Small.L),
                     verticalArrangement = Arrangement.spacedBy(Layout.Spacing.Small.L),
