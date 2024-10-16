@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mercadolibremobiletest.domain.model.drawerScreens
 import com.example.mercadolibremobiletest.navigation.NavHost
 import com.example.mercadolibremobiletest.presentation.composable.MenuContentScreen
-import com.example.mercadolibremobiletest.ui.theme.MercadolibreMobileTestTheme
+import com.example.mercadolibretest.design_system.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,10 +31,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MercadolibreMobileTestTheme {
+            AppTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     DrawerNavigationScreen()
                 }
